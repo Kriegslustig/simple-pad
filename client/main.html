@@ -1,0 +1,15 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Pad</title>
+</head>
+<body>
+  {{ > pad }}
+</body>
+
+<template name="pad">
+  {{ #if Template.subscriptionsReady }}
+    <textarea name="Render" disabled="{{ #if isLocked }}true{{ /if }}">{{ renderPad }}</textarea>
+  {{ /if }}
+</template>
+
+
