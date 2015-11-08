@@ -8,7 +8,7 @@
 
 <template name="pad">
   {{ #if Template.subscriptionsReady }}
-    <textarea name="Render" disabled="{{ #if isLocked }}true{{ /if }}">{{ renderPad }}</textarea>
+    <textarea autofocus name="Render" disabled="{{ #if isLocked }}true{{ /if }}">{{ renderPad }}</textarea>
   {{ /if }}
 </template>
 

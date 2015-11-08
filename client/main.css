@@ -9,12 +9,9 @@ textarea {
   font: 20px/30px "Courier New", monospace;
 }
 
-body {
-  padding: 1em;
-}
-
 textarea {
   border: none;
   resize: none;
+  padding: 1em;
 }
 
