@@ -1,33 +1,40 @@
-let padlock = new ReactiveVar({})
+let currentTime = new ReactiveVar((new Date).getTime())
+
+setInterval(() => {
+  currentTime.set((new Date).getTime())
+}, 1000)
 
 Template.pad.onCreated(function () {
   Session.set('document', location.pathname)
   if(!Session.get('clientId')) Session.set('clientId', Random.id())
   this.subscribe('pad', Session.get('document'))
-  setInterval(updatePadlock, 1000)
 })
 
 Template.pad.helpers({
   renderPad () {
-    return (Pads.findOne() || {}).text || ''
+    let text = (Pads.findOne() || {}).text
+    return (
+      text !== undefined
+      ? text
+      : Meteor.call('updateDoc', Session.get('document'), '', Session.get('clientId'))
+    )
   },
 
   isLocked () {
-    return !padlock.get()
+    let pad = Pads.findOne()
+    return (
+      !pad
+      || (
+        pad.lock.clientId !== Session.get('clientId')
+        && currentTime.get() - pad.lock.time < 10000
+      )
+    )
   }
 })
 
 Template.pad.events({
-  'keyup': _.throttle((e) => {
+  keyup: _.throttle((e) =>
     Meteor.call('updateDoc', Session.get('document'), e.currentTarget.value, Session.get('clientId'))
-  }, 1000)
-})
-
-function updatePadlock (){
-  let lock = Pads.findOne().lock
-  padlock.set(
-    lock.clientId === Session.get('clientId')
-    || (new Date).getTime() - lock.time > 10000
   )
-}
+})
 
