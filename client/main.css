@@ -37,17 +37,30 @@ p:first-child {
   height: 100vh;
 }
 
+button {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  border: none;
+  border-radius: 0;
+  height: 2rem;
+  width: 2rem;
+  background: hsl(0, 40%, 70%);
+}
+
 @media (min-width: 900px) {
-  textarea,
-  .display {
+  textarea.both,
+  .display.both {
+    width: 50%;
+    display: block;
     height: 100vh;
     overflow-y: scroll;
-    width: 50%;
   }
 
-  .display {
+  .display.both {
     border-left: 5px solid hsl(0, 40%, 70%);
-    display: block;
   }
 }
 

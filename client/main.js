@@ -1,5 +1,10 @@
 let currentTime = new ReactiveVar((new Date).getTime())
 Session.setDefault('show', 'both')
+const showStates = [
+  'both',
+  'display',
+  'write'
+]
 
 setInterval(() => {
   currentTime.set((new Date).getTime())
@@ -9,6 +14,18 @@ Template.pad.onCreated(function () {
   Session.set('document', location.pathname)
   if(!Session.get('clientId')) Session.set('clientId', Random.id())
   this.subscribe('pad', Session.get('document'))
+})
+
+Template.pad.events({
+  'click button' (e) {
+    Session.set(
+      'show',
+      showStates[
+        showStates.indexOf(Session.get('show'))
+        + 1
+      ] || 'both'
+    )
+  }
 })
 
 Template.pad.helpers({
@@ -38,6 +55,7 @@ Template.pad.helpers({
   },
   showDisplay: () => Session.get('show') === 'display' || Session.get('show') === 'both',
   showTextArea: () => Session.get('show') === 'write' || Session.get('show') === 'both',
+  both: () => Session.get('show') === 'both' ? 'both' : '',
 })
 
 Template.pad.events({
