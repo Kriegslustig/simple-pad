@@ -15,11 +15,16 @@ Template.pad.helpers({
     let text = (Pads.findOne() || {}).text
     return (
       text !== undefined
-      ? text
-      : Meteor.call('updateDoc', Session.get('document'), '', Session.get('clientId'))
+        ? text
+        : Meteor.call(
+          'updateDoc',
+          Session.get('document'),
+          '',
+          Session.get('clientId')
+        )
     )
   },
-
+  showRendered: () => Pads.findOne().text,
   isLocked () {
     let pad = Pads.findOne()
     return (
