@@ -8,10 +8,14 @@
 
 <template name="pad">
   {{ #if Template.subscriptionsReady }}
-    <textarea autofocus name="Render" disabled="{{ #if isLocked }}true{{ /if }}">{{ renderPad }}</textarea>
-    <div class="display">
-      {{ #markdown }}{{ showRendered }}{{ /markdown }}
-    </div>
+    {{ #if showTextArea }}
+      <textarea autofocus name="Render" disabled="{{ #if isLocked }}true{{ /if }}">{{ renderPad }}</textarea>
+    {{ /if }}
+    {{ #if showDisplay }}
+      <div class="display">
+        {{ #markdown }}{{ showRendered }}{{ /markdown }}
+      </div>
+    {{ /if }}
   {{ /if }}
 </template>
 

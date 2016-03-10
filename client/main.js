@@ -1,4 +1,5 @@
 let currentTime = new ReactiveVar((new Date).getTime())
+Session.setDefault('show', 'both')
 
 setInterval(() => {
   currentTime.set((new Date).getTime())
@@ -34,7 +35,9 @@ Template.pad.helpers({
         && currentTime.get() - pad.lock.time < 10000
       )
     )
-  }
+  },
+  showDisplay: () => Session.get('show') === 'display' || Session.get('show') === 'both',
+  showTextArea: () => Session.get('show') === 'write' || Session.get('show') === 'both',
 })
 
 Template.pad.events({
