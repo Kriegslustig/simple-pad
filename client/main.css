@@ -10,7 +10,7 @@ textarea {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font: 20px Input, "Courier New", monospace;
+  font: 20px Input, Helvetica, "Courier New", monospace;
 }
 
 * {
