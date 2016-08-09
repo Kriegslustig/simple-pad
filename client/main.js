@@ -1,9 +1,9 @@
 let currentTime = new ReactiveVar((new Date).getTime())
 Session.setDefault('show', 'both')
 const showStates = [
-  'both',
+  'write',
   'display',
-  'write'
+  'both'
 ]
 
 setInterval(() => {
