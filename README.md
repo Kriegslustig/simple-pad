@@ -9,7 +9,9 @@ A super simple notepad App with a minimalistic UI.
 cd /place/to/put/simple-pad
 git clone https://github.com/Kriegslustig/simple-pad.git
 cd simple-pad
-npm i
+# Extract the meteor app into a node app
+npm i -g demeteorizer
+demeteorizer
 # Build the docker-image. This might take a while.
 docker build . --tag=simple_pad
 # Start up a database.
