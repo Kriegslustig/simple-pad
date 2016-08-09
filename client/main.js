@@ -56,7 +56,11 @@ Template.pad.onCreated(function () {
 
 Template.pad.onRendered(function () {
   intervalId = window.setInterval(updateTextArea(this), 1000)
-  this.autorun(updateTextArea(this))
+  this.autorun(() => {
+    if (this.subscriptionsReady() && showTextArea()) {
+      setTimeout(updateTextArea(this)())
+    }
+  })
 })
 
 Template.pad.onDestroyed(function () {
@@ -64,13 +68,15 @@ Template.pad.onDestroyed(function () {
 })
 
 Template.pad.events({
+  // TODO make the button turn to display state
   'click button' (e) {
+    const currentState = showStates.indexOf(Session.get('show'))
+    const newState = currentState + 1 >= showStates.length
+      ? 0
+      : currentState + 1
     Session.set(
       'show',
-      showStates[
-        showStates.indexOf(Session.get('show'))
-        + 1
-      ] || 'both'
+      showStates[newState]
     )
   }
 })
@@ -95,7 +101,8 @@ const updateDoc = _.throttle(value => {
 
 Template.pad.events({
   keyup: (e) => {
-    updateDoc()
+    // TODO implement saving sign
+    updateDoc(e.target.value)
   }
 })
 
