@@ -1,0 +1,10 @@
+{
+  "name": "simple-pad",
+  "version": "0.0.0",
+  "scripts": {
+    "postinstall": "demeteorizer"
+  },
+  "dependencies": {
+    "demeteorizer": "^4.0.0"
+  }
+}

@@ -101,7 +101,6 @@ const updateDoc = _.throttle(value => {
 
 Template.pad.events({
   keyup: (e) => {
-    // TODO implement saving sign
     updateDoc(e.target.value)
   }
 })

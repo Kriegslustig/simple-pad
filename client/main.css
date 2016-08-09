@@ -62,7 +62,6 @@ p:first-child {
     transform .2s;
 }
 
-/* TODO: propper classnames */
 .simplePad__viewToggle--both {
   border-radius: 2rem;
 }
