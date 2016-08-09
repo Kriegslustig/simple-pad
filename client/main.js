@@ -68,7 +68,6 @@ Template.pad.onDestroyed(function () {
 })
 
 Template.pad.events({
-  // TODO make the button turn to display state
   'click button' (e) {
     const currentState = showStates.indexOf(Session.get('show'))
     const newState = currentState + 1 >= showStates.length
@@ -83,10 +82,11 @@ Template.pad.events({
 
 Template.pad.helpers({
   showRendered,
-  both: () => Session.get('show') === 'both' ? 'both' : '',
   isLocked,
   showDisplay,
   showTextArea,
+  both: () => Session.get('show') === 'both' ? 'both' : '',
+  getShow: () => Session.get('show'),
 })
 
 const updateDoc = _.throttle(value => {

@@ -7,7 +7,7 @@
 </body>
 
 <template name="pad">
-  <button>&nbsp;</button>
+  <button class="button--{{ getShow }}">&nbsp;</button>
   {{ #if Template.subscriptionsReady }}
     {{ #if showTextArea }}
       <textarea class="{{ both }}" autofocus name="Render" disabled="{{ #if isLocked }}true{{ /if }}"></textarea>

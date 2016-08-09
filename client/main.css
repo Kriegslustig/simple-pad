@@ -48,6 +48,20 @@ button {
   height: 2rem;
   width: 2rem;
   background: hsl(0, 40%, 70%);
+  border-radius: 0;
+  transform: rotate(0);
+  transition:
+    border-radius .2s,
+    transform .2s;
+}
+
+/* TODO: propper classnames */
+.button--both {
+  border-radius: 2rem;
+}
+
+.button--write {
+  transform: rotate(45deg);
 }
 
 @media (min-width: 900px) {
