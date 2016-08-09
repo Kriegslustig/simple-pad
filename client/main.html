@@ -7,13 +7,13 @@
 </body>
 
 <template name="pad">
-  <button class="button--{{ getShow }}">&nbsp;</button>
+  <button class="simplePad__viewToggle simplePad__viewToggle--{{ getShow }}">&nbsp;</button>
   {{ #if Template.subscriptionsReady }}
     {{ #if showTextArea }}
-      <textarea class="{{ both }}" autofocus name="Render" disabled="{{ #if isLocked }}true{{ /if }}"></textarea>
+      <textarea class="simplePad__text simplePad__text--{{ both }}" autofocus name="Render" disabled="{{ #if isLocked }}true{{ /if }}"></textarea>
     {{ /if }}
     {{ #if showDisplay }}
-      <div class="{{ both }} display">
+      <div class="simplePad__display simplePad__display--{{ both }}">
         {{ #markdown }}{{ showRendered }}{{ /markdown }}
       </div>
     {{ /if }}
