@@ -5,6 +5,8 @@ const showStates = [
   'both'
 ]
 
+const stateHash = LocationHash(showStates)
+
 Session.setDefault('show', showStates[0])
 
 setInterval(() => {
@@ -82,6 +84,18 @@ Template.pad.onRendered(function () {
     } else {
       currentLockState = isLocked()
     }
+  })
+
+  /* Runs whenever the hash chagnes to update Session.show */
+  Tracker.autorun(() => {
+    const newState = stateHash.get()
+    if (newState) Session.set('show', newState)
+  })
+
+  /* Updates Session */
+  Tracker.autorun(() => {
+    const newState = Session.get('show')
+    if (newState) stateHash.set(newState)
   })
 })
 
