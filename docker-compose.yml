@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  mongo:
+    image: mmongo
+    restart: always
+  simple_pad:
+    build: .
+    restart: always
+    ports:
+      - 4244:80
+
