@@ -14,9 +14,10 @@ setInterval(() => {
 const isLocked = () => {
   let pad = Pads.findOne()
   return (
-    !pad
-    || (
-      pad.lock.clientId !== Session.get('clientId')
+    pad
+    && (
+      pad.lock.clientId
+      && pad.lock.clientId !== Session.get('clientId')
       && currentTime.get() - pad.lock.time < 10000
     )
   )
@@ -33,16 +34,24 @@ const lock = () =>
   Meteor.call(
     'updateDoc',
     Session.get('document'),
-    '',
+    null,
     Session.get('clientId')
   )
 
-const updateTextArea = templateInstance => () => {
+const unlock = getter => (...args) =>
+  Meteor.call(
+    'updateDoc',
+    Session.get('document'),
+    getter(...args),
+    null
+  )
+
+const updateTextArea = (templateInstance, force) => () => {
   const element = templateInstance.find('textarea')
   if (!element) return
-  const text = element.textContent
-  if (!text || text === '' || isLocked()) {
-    element.textContent = showRendered()
+  const text = element.value
+  if (force || !text || text === '' || isLocked()) {
+    element.value = showRendered()
   }
 }
 
@@ -58,7 +67,20 @@ Template.pad.onRendered(function () {
   intervalId = window.setInterval(updateTextArea(this), 1000)
   this.autorun(() => {
     if (this.subscriptionsReady() && showTextArea()) {
-      setTimeout(updateTextArea(this)())
+      /* Update the textarea as soon as the document loads */
+      setTimeout(updateTextArea(this, true))
+    }
+  })
+  /* Seperate autorun, should only run when isLocked changes */
+  let currentLockState = isLocked()
+  Tracker.autorun(() => {
+    /* As soon as the pad gets unlocked */
+    if (!isLocked() && currentLockState) {
+      currentLockState = false
+      /* Update the textarea */
+      updateTextArea(this, true)()
+    } else {
+      currentLockState = isLocked()
     }
   })
 })
@@ -102,6 +124,8 @@ const updateDoc = _.throttle(value => {
 Template.pad.events({
   keyup: (e) => {
     updateDoc(e.target.value)
-  }
+  },
+  focus: lock,
+  blur: unlock(e => e.target.value),
 })
 
