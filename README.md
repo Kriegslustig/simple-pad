@@ -12,12 +12,10 @@ cd simple-pad
 # Extract the meteor app into a node app
 npm i -g demeteorizer
 demeteorizer
-# Build the docker-image. This might take a while.
-docker build . --tag=simple_pad
-# Start up a database.
-docker run -d --name mongo_simple_pad --restart always mongo:latest
-# Run the docker image. Replace [localport] with the port simple_pad should run on.
-docker run -dp [localport]:80 --restart always --name simple_pad --link mongo_simple_pad:mongo simple_pad
+# Change the set port (4244 to something like 80)
+vim docker-compose.yml
+# Start the container in the backgroung
+docker-compose up -d
 ```
 
 ## Update
@@ -25,9 +23,10 @@ docker run -dp [localport]:80 --restart always --name simple_pad --link mongo_si
 ```bash
 cd /location/of/simple-pad
 git pull
-docker build . --tag=simple_pad
-docker stop simple_pad
-docker rm simple_pad
-docker run -dp [localport]:80 --restart always --name simple_pad --link mongo_simple_pad:mongo simple_pad
+demeteorizer
+# Restart and rebuild the container
+docker-compose down
+docker-compose build
+docker-compose up
 ```
 

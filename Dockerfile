@@ -26,5 +26,5 @@ RUN npm i
 
 EXPOSE 80
 
-CMD export MONGO_URL="mongodb://${MONGO_PORT_27017_TCP_ADDR}:${MONGO_PORT_27017_TCP_PORT}${MONGO_NAME}" && npm start
+CMD export MONGO_URL="mongodb://mongo:27017" && npm start
 
