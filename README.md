@@ -4,6 +4,8 @@ A super simple notepad App with a minimalistic UI.
 
 ## Installation
 
+First you'll need to install [Node LTS (4.4)](https://nodejs.org/en/download/package-manager/), [Docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/) (choose the right distro first) and [docker-compose](https://docs.docker.com/compose/install/).
+
 ``` bash
 # Start a mongodb container see https://hub.docker.com/_/mongo/ for persistant data storage.
 cd /place/to/put/simple-pad
