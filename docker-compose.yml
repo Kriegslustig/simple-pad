@@ -6,7 +6,7 @@ services:
     ports:
       - 4244:80
     links:
-      mongo
+      - mongo
     restart: always
 
   mongo:
